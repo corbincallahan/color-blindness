@@ -37,15 +37,16 @@ public class ColorBlindness {
         return red == 0;
     }
 
-    // need to figure out the yellow hex values
     // Returns true if the given color is unaffected by Tritanopia
     private boolean idTritanopia(String color){
+        int blue = getBlue(color);
         int red = getRed(color);
         int green = getGreen(color);
-
-        if(red <256 && red >230){
-            if(green < 256 && green >220){
+        if(blue > 0) {
+            if (red < 256 && red > 230) {
+                if (green < 256 && green > 220) {
                     return false;
+                }
             }
         }
         return true;
