@@ -72,7 +72,7 @@ public class ColorBlindness {
         }
     }
 
-    private void printResults(){
+    private String printResults(){
         String res = "This palette ";
         if(protanopia && deuteranopia && tritanopia){
             res += "works for all types of color blindness.";
@@ -80,41 +80,25 @@ public class ColorBlindness {
         else{
             res += "does not work for ";
 
-            // Should we include this? Could leave this out to simplify things.
-            // Could simplify output to "This palette does not work for Protanopia Deuteranopia Tritanopia"
-            boolean comma = false;
-
             if (!protanopia){
-                res += "Protanopia";
-                comma = true;
+                res += "Protanopia ";
             }
 
             if (!deuteranopia){
-                if(comma){
-                    res += "Deuteranopia";
-                }
-                else{
-                    res += ", Deuteranopia";
-                }
-                comma = true;
+                res += "Deuteranopia "; // not sure if we should do something special with the spacing
             }
 
             if (!tritanopia){
-                if(comma){
-                    res += "Tritanopia";
-                }
-                else{
-                    res += ", Tritanopia";
-                }
+                res += "Tritanopia";
             }
         }
-        System.out.println(res); // could also return it, not sure which is best
+        return res;
     }
 
     // If we want to add more, could also include a method to convert from three integers (0 - 255) into a hex string
     public static void main(String[] args) {
         ColorBlindness inst = new ColorBlindness();
         inst.identifyPalette("0FFFF0 1FFFF1 2FFFF2 3FFFF3");
-        inst.printResults();
+        System.out.println(inst.printResults());
     }
 }
