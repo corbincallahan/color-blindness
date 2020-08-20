@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class ColorBlindness {
     // true = works for color blindness
     private boolean protanopia = true;
@@ -98,7 +100,9 @@ public class ColorBlindness {
     // If we want to add more, could also include a method to convert from three integers (0 - 255) into a hex string
     public static void main(String[] args) {
         ColorBlindness inst = new ColorBlindness();
-        inst.identifyPalette("0FFFF0 1FFFF1 2FFFF2 3FFFF3");
+        Scanner input = new Scanner(System.in);
+        String palette = input.nextLine();
+        inst.identifyPalette(palette);
         System.out.println(inst.printResults());
     }
 }
