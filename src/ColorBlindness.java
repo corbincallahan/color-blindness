@@ -4,35 +4,43 @@ public class ColorBlindness {
     private boolean deuteranopia = true;
     private boolean tritanopia = true;
 
+    // Extract the red component
     private int getRed(String hex) {
         String sub = hex.substring(0, 2);
         return Integer.parseInt(sub, 16);
     }
 
+    // Extract the green component
     private int getGreen(String hex) {
         String sub = hex.substring(2, 4);
         return Integer.parseInt(sub, 16);
     }
 
+    // Extract the blue component
     private int getBlue(String hex) {
         String sub = hex.substring(4);
         return Integer.parseInt(sub, 16);
     }
 
+    // Returns true if the given color is unaffected by Deuteranopia
     private boolean idDeuteranopia(String color){
         int green = getGreen(color);
         return green == 0;
     }
 
+    // Returns true if the given color is unaffected by Protanopia
     private boolean idProtanopia(String color){
         int red = getRed(color);
         return red == 0;
     }
+
     // need to figure out the yellow hex values
+    // Returns true if the given color is unaffected by Tritanopia
     private boolean idTritanopia(String color){
         return false;
     }
 
+    // Takes a series of colors and prints how the palette works for different types of colorblindness
     private void identifyPalette(String palette) {
         int start = 0;
         for (int i = 6; i <= palette.length(); i += 7) {
@@ -59,26 +67,33 @@ public class ColorBlindness {
         }
         else{
             res += "does not work for ";
-            int comma = 0;
+
+            // Should we include this? Could leave this out to simplify things.
+            // Could simplify output to "This palette does not work for Protanopia Deuteranopia Tritanopia"
+            boolean comma = false;
+
             if (!protanopia){
                 res += "Protanopia";
-                comma++;
+                comma = true;
             }
-            if (!deuteranopia && comma < 1 ){
-                res += "Deuteranopia";
-                comma++;
+
+            if (!deuteranopia){
+                if(comma){
+                    res += "Deuteranopia";
+                }
+                else{
+                    res += ", Deuteranopia";
+                }
+                comma = true;
             }
-            else if (!deuteranopia && comma > 0){
-                res += ", Deuteranopia";
-                comma++;
-            }
-            if (!tritanopia && comma < 1 ){
-                res += "Tritanopia";
-                comma++;
-            }
-            else if (!tritanopia && comma > 0){
-                res += ", Tritanopia";
-                comma++;
+
+            if (!tritanopia){
+                if(comma){
+                    res += "Tritanopia";
+                }
+                else{
+                    res += ", Tritanopia";
+                }
             }
         }
         System.out.println(res); // could also return it, not sure which is best
