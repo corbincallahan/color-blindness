@@ -26,14 +26,17 @@ public class ColorBlindness {
 
         return Math.abs(blue1 - blue2) < 20;
     }
-    // placeholders
+
     private boolean idDeuteranopia(String color){
-        return false;
+        int green = getGreen(color);
+        return green == 0;
     }
 
     private boolean idProtanopia(String color){
-        return false;
+        int red = getRed(color);
+        return red == 0;
     }
+    // need to figure out the yellow hex values
     private boolean idTritanopia(String color){
         return false;
     }
