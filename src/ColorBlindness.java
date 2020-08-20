@@ -53,7 +53,7 @@ public class ColorBlindness {
             if (tritanopia)
                 tritanopia = idTritanopia(color);
 
-            start += i; // need to fix to make sure it doesn't take the " " at the beginning of each color
+            start = i + 1;
         }
     }
 
