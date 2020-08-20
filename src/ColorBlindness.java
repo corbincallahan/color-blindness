@@ -25,6 +25,9 @@ public class ColorBlindness {
     // Returns true if the given color is unaffected by Deuteranopia
     private boolean idDeuteranopia(String color){
         int green = getGreen(color);
+
+        // Would it be better to use some threshhold here rather than checking == 0?
+        // Could use green < 64, although this is still a simplification
         return green == 0;
     }
 
@@ -99,6 +102,7 @@ public class ColorBlindness {
         System.out.println(res); // could also return it, not sure which is best
     }
 
+    // If we want to add more, could also include a method to convert from three integers (0 - 255) into a hex string
     public static void main(String[] args) {
         ColorBlindness inst = new ColorBlindness();
         inst.identifyPalette("0FFFF0 1FFFF1 2FFFF2 3FFFF3");
