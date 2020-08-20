@@ -40,7 +40,17 @@ public class ColorBlindness {
     // need to figure out the yellow hex values
     // Returns true if the given color is unaffected by Tritanopia
     private boolean idTritanopia(String color){
-        return false;
+        int blue = getBlue(color);
+        int red = getRed(color);
+        int green = getGreen(color);
+        if(blue == 33){
+            if(red <256 && red >230){
+                if(green < 256 && green >220){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     // Takes a series of colors and prints how the palette works for different types of colorblindness
