@@ -43,11 +43,10 @@ public class ColorBlindness {
         int blue = getBlue(color);
         int red = getRed(color);
         int green = getGreen(color);
-        if(blue == 33){
-            if(red <256 && red >230){
-                if(green < 256 && green >220){
+
+        if(red <256 && red >230){
+            if(green < 256 && green >220){
                     return false;
-                }
             }
         }
         return true;
