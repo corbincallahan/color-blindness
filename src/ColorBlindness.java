@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class ColorBlindness {
     // true = works for color blindness
     private boolean protanopia = true;
@@ -37,10 +39,19 @@ public class ColorBlindness {
         return red == 0;
     }
 
-    // need to figure out the yellow hex values
     // Returns true if the given color is unaffected by Tritanopia
     private boolean idTritanopia(String color){
-        return false;
+        int blue = getBlue(color);
+        int red = getRed(color);
+        int green = getGreen(color);
+        if(blue > 0) {
+            if (red < 256 && red > 230) {
+                if (green < 256 && green > 220) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     // Takes a series of colors and prints how the palette works for different types of colorblindness
@@ -63,7 +74,7 @@ public class ColorBlindness {
         }
     }
 
-    private void printResults(){
+    private String printResults(){
         String res = "This palette ";
         if(protanopia && deuteranopia && tritanopia){
             res += "works for all types of color blindness.";
@@ -71,41 +82,27 @@ public class ColorBlindness {
         else{
             res += "does not work for ";
 
-            // Should we include this? Could leave this out to simplify things.
-            // Could simplify output to "This palette does not work for Protanopia Deuteranopia Tritanopia"
-            boolean comma = false;
-
             if (!protanopia){
-                res += "Protanopia";
-                comma = true;
+                res += "Protanopia ";
             }
 
             if (!deuteranopia){
-                if(comma){
-                    res += "Deuteranopia";
-                }
-                else{
-                    res += ", Deuteranopia";
-                }
-                comma = true;
+                res += "Deuteranopia "; // not sure if we should do something special with the spacing
             }
 
             if (!tritanopia){
-                if(comma){
-                    res += "Tritanopia";
-                }
-                else{
-                    res += ", Tritanopia";
-                }
+                res += "Tritanopia";
             }
         }
-        System.out.println(res); // could also return it, not sure which is best
+        return res;
     }
 
     // If we want to add more, could also include a method to convert from three integers (0 - 255) into a hex string
     public static void main(String[] args) {
         ColorBlindness inst = new ColorBlindness();
-        inst.identifyPalette("0FFFF0 1FFFF1 2FFFF2 3FFFF3");
-        inst.printResults();
+        Scanner input = new Scanner(System.in);
+        String palette = input.nextLine();
+        inst.identifyPalette(palette);
+        System.out.println(inst.printResults());
     }
 }
